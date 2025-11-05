@@ -38,7 +38,7 @@ def handle_audio_request():
     if not video_url:
         return jsonify(error="Missing 'url' parameter in request."), BAD_REQUEST
 
-    filename = f"{uuid4()}.mp3"
+    filename = str(uuid4())
     output_path = Path(ABS_DOWNLOADS_PATH) / filename
 
     # yt-dlp configuration for downloading best audio and converting to mp3
@@ -59,7 +59,7 @@ def handle_audio_request():
     except Exception as e:
         return jsonify(error="Failed to download or convert audio.", detail=str(e)), INTERNAL_SERVER_ERROR
 
-    return _generate_token_response(filename)
+    return _generate_token_response(f"{filename}.mp3")
 
 
 @app.route("/download", methods=["GET"])
