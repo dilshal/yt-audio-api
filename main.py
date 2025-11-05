@@ -50,7 +50,7 @@ def handle_audio_request():
             'preferredcodec': 'mp3',
             'preferredquality': '192'
         }],
-        'quiet': True
+        'quiet': False
     }
 
     try:
