@@ -91,6 +91,28 @@ def download_audio():
         return jsonify(error="Requested file could not be found on the server."), NOT_FOUND
 
 
+@app.route("/debug", methods=["GET"])
+def debug_info():
+    """Debug endpoint to check filesystem"""
+    downloads_exists = Path(ABS_DOWNLOADS_PATH).exists()
+    downloads_is_dir = Path(ABS_DOWNLOADS_PATH).is_dir()
+    
+    files = []
+    if downloads_exists:
+        try:
+            files = [f.name for f in Path(ABS_DOWNLOADS_PATH).iterdir()]
+        except Exception as e:
+            files = [f"Error listing: {str(e)}"]
+    
+    return jsonify({
+        "downloads_path": ABS_DOWNLOADS_PATH,
+        "downloads_exists": downloads_exists,
+        "downloads_is_dir": downloads_is_dir,
+        "files_in_downloads": files,
+        "cwd": os.getcwd()
+    })
+
+
 def _generate_token_response(filename: str):
     """
     Generates a secure download token for a given filename,
