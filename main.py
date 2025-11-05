@@ -18,6 +18,9 @@ from constants import *
 # Initialize the Flask application
 app = Flask(__name__)
 
+# Create downloads directory if it doesn't exist
+Path(ABS_DOWNLOADS_PATH).mkdir(exist_ok=True)
+
 
 @app.route("/", methods=["GET"])
 def handle_audio_request():
