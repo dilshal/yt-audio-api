@@ -5,6 +5,7 @@ Clean, modular Flask-based backend for downloading and serving YouTube audio tra
 Utilizes yt-dlp and FFmpeg for conversion and token-based access management.
 """
 
+import os
 import secrets
 import threading
 from flask import Flask, request, jsonify, send_from_directory
@@ -113,7 +114,7 @@ def main():
         daemon=True
     )
     token_cleaner_thread.start()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)), debug=False)
 
 
 if __name__ == "__main__":
