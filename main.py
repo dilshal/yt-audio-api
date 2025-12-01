@@ -44,6 +44,7 @@ def handle_audio_request():
     # yt-dlp configuration for downloading best audio and converting to mp3
     ydl_opts = {
         'format': 'bestaudio/best',
+        'cookiefile': 'cookies.txt',  # ← ADD THIS LINE
         'outtmpl': str(output_path),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
