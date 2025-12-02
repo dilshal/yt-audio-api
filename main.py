@@ -49,7 +49,7 @@ def handle_audio_request():
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
-            'preferredquality': '96'
+            'preferredquality': '64'
         }],
         'quiet': False
     }
